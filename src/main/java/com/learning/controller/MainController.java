@@ -43,8 +43,7 @@ public class MainController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
-    public String handleFileUpload(@RequestParam("name") String name,
-                                   @RequestParam("ignoreWhite") boolean ignoreWhite,
+    public String handleFileUpload(@RequestParam("ignoreWhite") boolean ignoreWhite,
                                    @RequestParam("quality") int quality,
                                    @RequestParam("file") MultipartFile file,
                                    Model model) {
