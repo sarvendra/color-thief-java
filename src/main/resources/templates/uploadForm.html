@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" type="text/css" th:href="/css/uploadForm.css}">
+    <script src="https://apps-static.flock.co/jquery/2.1.4/jquery.min.js"></script>
+    <script th:src="/js/uplaodForm.js"></script>
+  </head>
+<body>
+  <div th:if="${message}">
+    <h2 th:text="${message}"/>
+  </div>
+
+  <div>
+    <form id="image-form" method="POST" enctype="multipart/form-data" action="/">
+      <table>
+        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+        <tr><td>Name:</td><td><input type="text" name="name" /></td></tr>
+        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+      </table>
+    </form>
+  </div>
+  <img id="image" src="none"/>
+</body>
+</html>
