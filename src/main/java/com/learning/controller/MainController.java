@@ -53,6 +53,7 @@ public class MainController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
     public String handleFileUpload(@RequestParam("name") String name,
+                                   @RequestParam("ignoreWhite") boolean ignoreWhite,
                                    @RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 //        if (name.contains("/")) {
