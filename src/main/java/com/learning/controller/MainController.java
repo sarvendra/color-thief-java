@@ -45,13 +45,14 @@ public class MainController {
     @RequestMapping(method = RequestMethod.POST, value = "/")
     public String handleFileUpload(@RequestParam(name="ignoreWhite", required = false) boolean ignoreWhite,
                                    @RequestParam("quality") int quality,
+                                   @RequestParam("colorCount") int colorCount,
                                    @RequestParam("file") MultipartFile file,
                                    Model model) {
         if (!file.isEmpty()) {
             try {
                 InputStream in = new ByteArrayInputStream(file.getBytes());
                 BufferedImage img = ImageIO.read(in);
-                String dominantColorHTML = getDominantColorAsHTML(img, ignoreWhite, quality);
+                String dominantColorHTML = getDominantColorAsHTML(img, ignoreWhite, colorCount, quality);
                 model.addAttribute("dominantColor", dominantColorHTML);
                 in.close();
             }
@@ -65,13 +66,13 @@ public class MainController {
         return "dominant";
     }
 
-    private String getDominantColorAsHTML(BufferedImage img, boolean ignoreWhite, int quality) {
+    private String getDominantColorAsHTML(BufferedImage img, boolean ignoreWhite, int colorCount, int quality) {
         String html = "<style>div.color{width:4em;height:4em;float:left;margin:0 1em 1em 0;}"
                 + "th{text-align:left}"
                 + "td{vertical-align:top;padding-right:1em}</style>";
         html += "<h2>Dominant Color</h2>";
         // The dominant color is taken from a 5-map
-        MMCQ.CMap result = ColorThief.getColorMap(img, 5, quality, ignoreWhite);
+        MMCQ.CMap result = ColorThief.getColorMap(img, colorCount, quality, ignoreWhite);
         MMCQ.VBox dominantColor = result.vboxes.get(0);
         html += getVBoxAsString(dominantColor);
         return html;
